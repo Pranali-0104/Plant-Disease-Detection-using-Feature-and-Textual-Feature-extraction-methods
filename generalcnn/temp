@@ -1,1 +1,6 @@
+Download Dataset:
+https://www.kaggle.com/datasets/vipoooool/new-plant-diseases-dataset
 
+Emsure that the 3 folders for test,train and Valid images are in same firectory as the Model training files.
+
+Run models for training followed by testing, New.py is the file for web application using Streamlit
