@@ -1,16 +1,85 @@
-# Plant-Disease-Detection-using-Feature-and-Textual-Feature-extraction-methods
-Detect plant diseases using CNNs & NLP. Integrated into a Kotlin mobile app. Access project details in ApnaKhet.txt.
+# Deep Insights into Plant Health: A Multimodal (Visual + Textual) Approach for Precision Plant Disease Detection
 
-Repository Description:
-Plant Disease Detection using Feature and Textual Feature Extraction
+[cite_start]This repository contains the B.Tech Final Year Project for our paper, **"Deep insights into Plant Health: Precision Plant Disease Detection using visual and textual feature extraction methods to overcome Agricultural barriers."** [cite: 93, 94]
 
-This repository presents a comprehensive solution for accurately detecting plant diseases through a combination of visual and textual feature extraction techniques.
+[cite_start]This project was a team effort by Pranali Baviskar [cite: 99][cite_start], Aparna Warrier [cite: 100][cite_start], Shraddha Singh [cite: 101][cite_start], and Shagufta Varsi [cite: 102][cite_start], under the supervision of Dr. Jinesh Melvin[cite: 104].
 
-Key Features:
+[cite_start]**My specific role in this project was developing the deep learning model and performing the necessary computations**[cite: 1495].
 
-- Visual Feature Extraction: Utilizes Convolutional Neural Networks (CNNs) and their advanced variants, such as Region-based CNN (RCNN) and Faster RCNN, to effectively identify and analyze visual characteristics of plant leaves and other relevant parts.
-- Textual Feature Extraction: Employs Natural Language Processing (NLP) models to extract meaningful information from textual data, such as disease descriptions, symptoms, or user-provided inputs.
-- Integration with Mobile App: The developed model is seamlessly integrated into a mobile application built using Kotlin. This user-friendly interface allows for easy disease detection and provides valuable recommendations.
-- Complete Project Access: The repository includes a link to the ApnaKhet.txt file, which contains detailed information and access to the complete project, including code, data, and documentation.
-  
-By leveraging the power of deep learning and NLP, this repository offers a robust and efficient approach to plant disease detection, enabling farmers and agricultural experts to take timely preventive measures and protect their crops.
+---
+
+### Published Paper
+
+Our research was formally published in the **International Research Journal on Advanced Engineering and Management (IRJAEM)**.
+
+**➡️ [View the Full Publication Here](https://goldncloudpublications.com/index.php/irjaem/article/view/873)**
+
+---
+
+### 1. Project Overview
+
+This project presents a robust system for accurately detecting plant diseases by **fusing visual and textual data**.
+
+[cite_start]Existing systems often rely *only* on visual data (a leaf image)[cite: 1124, 1125]. [cite_start]Our system improves upon this by integrating a second data stream: **textual analysis**[cite: 169]. [cite_start]It processes farmer reports, agricultural databases, and environmental data (like humidity and weather) using NLP to understand the *context* behind the visual symptoms[cite: 169, 187, 443].
+
+[cite_start]This multimodal (Visual + Textual) approach provides a far more accurate and reliable diagnosis than a visual-only model[cite: 993, 1136].
+
+---
+
+### 2. System Architecture
+
+The system operates in a multi-stage pipeline as detailed in our project report:
+
+1.  [cite_start]**Input:** A farmer captures an image of a plant using a mobile phone or drone[cite: 406].
+2.  [cite_start]**Preprocessing:** The image undergoes noise removal and resizing[cite: 408].
+3.  **Dual Feature Extraction:**
+    * [cite_start]**Visual (CNN):** The image is fed into CNN models (Faster R-CNN, Mask R-CNN) to extract visual features like spots, lesions, and textures[cite: 409, 412, 413, 501].
+    * [cite_start]**Textual (NLP):** Environmental data (weather, soil) and textual reports are processed using **TF-IDF** and NLP models to extract key textual features[cite: 410, 505, 507].
+4.  [cite_start]**Multimodal Fusion:** The visual and textual feature vectors are combined to create a single, comprehensive data point[cite: 411, 509].
+5.  [cite_start]**Classification:** The fused data is fed into a classifier to identify the specific disease[cite: 414].
+6.  [cite_start]**Action:** The system provides the user with real-time alerts, treatment recommendations (fertilizers, irrigation), and historical data visualization[cite: 415, 416, 417].
+
+---
+
+### 3. Key Project Components
+
+This project consists of two main parts:
+
+1.  **Backend & AI Model (This Repository):**
+    * [cite_start]Contains the Python code for the **Faster R-CNN** and **Mask R-CNN** models[cite: 513, 516].
+    * [cite_start]Includes the data processing scripts for the **PlantVillage dataset**[cite: 623].
+    * [cite_start]Features the **multimodal fusion** logic that combines visual and NLP (TF-IDF) outputs[cite: 509, 967].
+    * [cite_start]Includes a **Flask-based web application** for desktop-based recognition[cite: 848, 853].
+
+2.  **`ApnaKhet` Mobile Application (Client):**
+    * [cite_start]A user-friendly **Kotlin-based mobile app** developed by the team[cite: 595, 1497].
+    * [cite_start]Allows farmers to take pictures, submit them to the backend API, and receive diagnoses and recommendations[cite: 677, 680].
+    * **➡️ [View the Mobile App GitHub Repository](https://github.com/ShaguftaVarsi/ApnaKhet)**
+
+---
+
+### 4. Tech Stack
+
+* [cite_start]**AI/ML:** Python, TensorFlow, PyTorch, Scikit-learn, OpenCV, Hugging Face Transformers [cite: 1448]
+* [cite_start]**NLP:** NLTK, spaCy, TF-IDF [cite: 967, 1253, 1268]
+* [cite_start]**Models:** CNN, Faster R-CNN, Mask R-CNN, ResNet [cite: 513, 516, 1369]
+* **Backend:** Flask
+* [cite_start]**Mobile App:** Kotlin [cite: 595]
+* [cite_start]**Database:** MySQL [cite: 600]
+
+---
+
+### 5. Results & Performance
+
+Our central hypothesis was proven correct: the multimodal (fused) model significantly outperformed visual-only baseline models.
+
+The final evaluation, conducted on a test set of 15%, showed a **~12% improvement in F1-Score** for our multimodal system.
+
+| Model | Precision | Recall | F1-Score |
+| :--- | :---: | :---: | :---: |
+| CNN (Baseline) | 82.5% | 78.9% | 80.6% |
+| **Multimodal Fusion** | **93.5%** | **91.8%** | **92.6%** |
+
+**Confusion Matrix:**
+Our final model performed with high accuracy across all **38 classes** in the dataset.
+<img width="783" height="763" alt="image" src="https://github.com/user-attachments/assets/99b93061-43f9-4802-ae2a-4f3564238df6" />
