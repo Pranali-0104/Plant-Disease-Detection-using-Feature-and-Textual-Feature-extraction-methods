@@ -1,0 +1,75 @@
+project:
+  name: plant-disease-intelligence-stage2
+  seed: 42
+
+dataset:
+  root: COCO DATASET
+  train_split: train
+  valid_split: valid
+  test_split: test
+  annotation_file: _annotations.coco.json
+  name_prefix: plant_disease_mask
+  require_masks: true
+
+model:
+  type: mask_rcnn
+  architecture: COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml
+  num_classes: 38
+  weights: COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml
+  device: auto
+  score_threshold: 0.5
+  mask_threshold: 0.5
+
+training:
+  output_dir: outputs/mask_rcnn_R50_FPN
+  max_iter: 10000
+  batch_size: 2
+  base_lr: 0.00025
+  num_workers: 2
+  checkpoint_period: 500
+  eval_period: 500
+  ims_per_batch: 2
+  roi_batch_size_per_image: 128
+  warmup_iters: 200
+  steps: [7000, 9000]
+  gamma: 0.1
+  mixed_precision: true
+  resume: true
+  early_stopping:
+    enabled: true
+    patience: 8
+    min_delta: 0.0001
+
+inference:
+  input: COCO DATASET/test
+  output_dir: outputs/mask_inference
+  score_threshold: 0.5
+  mask_threshold: 0.5
+  top_k: 1
+  extensions: [".jpg", ".jpeg", ".png", ".bmp", ".webp"]
+  export_bbox: true
+  export_mask_png: true
+  export_blended: true
+  export_side_by_side: true
+  overlay_alpha: 0.45
+
+severity:
+  enabled: true
+  leaf_area_mode: foreground
+  infected_mask_threshold: 0.5
+  min_lesion_area_px: 25
+  thresholds:
+    mild: 5
+    moderate: 20
+    severe: 45
+  leaf_isolation:
+    enabled: true
+    largest_contour_only: true
+    morph_kernel_size: 5
+    min_leaf_area_px: 500
+
+visualization:
+  output_dir: outputs/mask_visualizations
+  max_images: 5
+  overlay_alpha: 0.45
+  draw_contours: true

@@ -1,5 +1,77 @@
 # Object-Detection-Plant-Diseases
 
+## Run Faster R-CNN locally with this repository dataset
+
+The original notebook uses Detectron2 and expects COCO annotation JSON files. The connected
+`dataset` folder in this repository is a class-folder dataset, so use the local PyTorch script:
+
+```powershell
+python FasterRCNN\train_fasterrcnn_folder.py --epochs 5 --batch-size 2
+```
+
+For a quick setup check without training:
+
+```powershell
+python FasterRCNN\train_fasterrcnn_folder.py --dry-run --max-train-images 2 --max-valid-images 2
+```
+
+The script saves checkpoints and `classes.json` under:
+
+```text
+FasterRCNN\outputs\fasterrcnn_folder
+```
+
+Note: because the current dataset has class labels but no bounding-box annotations, the script
+uses one bounding box covering the full image. For true disease-region detection, annotate the
+images in COCO format and use the Detectron2 notebook.
+
+## Run Faster R-CNN with the Roboflow COCO dataset
+
+The `COCO DATASET` folder contains `train`, `valid`, and `test` splits with
+`_annotations.coco.json` files. Use this script for a local TorchVision Faster R-CNN run:
+
+```powershell
+python FasterRCNN\train_fasterrcnn_coco.py --epochs 1 --batch-size 1 --max-train-images 2 --max-valid-images 2 --max-test-images 5
+```
+
+For a dataset health report:
+
+```powershell
+python FasterRCNN\audit_coco_dataset.py
+```
+
+For a setup-only check:
+
+```powershell
+python FasterRCNN\train_fasterrcnn_coco.py --dry-run --max-train-images 2 --max-valid-images 2 --max-test-images 5
+```
+
+Prediction previews are saved under:
+
+```text
+FasterRCNN\outputs\fasterrcnn_coco\test_predictions
+```
+
+The training script also writes:
+
+```text
+FasterRCNN\outputs\fasterrcnn_coco\metrics.csv
+FasterRCNN\outputs\fasterrcnn_coco\best_checkpoint.pth
+FasterRCNN\outputs\fasterrcnn_coco\last_checkpoint.pth
+FasterRCNN\outputs\fasterrcnn_coco\test_metrics.json
+```
+
+Ground-truth COCO box previews can be generated with:
+
+```powershell
+python FasterRCNN\preview_coco_boxes.py --coco-json "../COCO DATASET/test/_annotations.coco.json" --image-dir "../COCO DATASET/test" --output-dir outputs/coco_test_box_previews --max-images 5
+```
+
+Compared with older Keras Faster R-CNN examples, this local version keeps the Roboflow COCO
+format directly, handles train/valid/test splits, remaps COCO category ID `0` away from the
+Faster R-CNN background class, saves best/last checkpoints, writes metrics, and creates clean
+one-box prediction previews.
+
 ## Project Overview
 This project explores the potential of deep learning in early detection and diagnosis of plant diseases—an essential step for preventing widespread crop damage and ensuring food security. Utilizing the integrated datasets from Plant Village and Plant Doc, the project features advanced object detection and instance segmentation models, including YOLOv8m, YOLOv8l, Faster-RCNN, RetinaNet, YOLOv8m-seg, YOLOv8l-seg, and Mask-RCNN. These models were assessed using precision, recall, and mean Average Precision (mAP), demonstrating deep learning's transformative capability in plant disease detection.
 

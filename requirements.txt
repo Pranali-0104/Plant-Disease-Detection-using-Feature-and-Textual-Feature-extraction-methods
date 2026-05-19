@@ -1,0 +1,13 @@
+torch
+torchvision
+opencv-python
+pyyaml
+matplotlib
+pillow
+tqdm
+tensorboard
+numpy
+
+# Detectron2 installation depends on your CUDA/PyTorch version.
+# Install from the official Detectron2 instructions:
+# https://detectron2.readthedocs.io/en/latest/tutorials/install.html

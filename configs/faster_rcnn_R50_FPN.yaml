@@ -1,0 +1,49 @@
+project:
+  name: plant-disease-intelligence-stage1
+  seed: 42
+
+dataset:
+  root: COCO DATASET
+  train_split: train
+  valid_split: valid
+  test_split: test
+  annotation_file: _annotations.coco.json
+  name_prefix: plant_disease
+
+model:
+  architecture: COCO-Detection/faster_rcnn_R_50_FPN_3x.yaml
+  num_classes: 38
+  weights: COCO-Detection/faster_rcnn_R_50_FPN_3x.yaml
+  device: auto
+  score_threshold: 0.5
+
+training:
+  output_dir: outputs/faster_rcnn_R50_FPN
+  max_iter: 8000
+  batch_size: 2
+  base_lr: 0.00025
+  num_workers: 2
+  checkpoint_period: 500
+  eval_period: 500
+  ims_per_batch: 2
+  roi_batch_size_per_image: 128
+  warmup_iters: 200
+  steps: [5000, 7000]
+  gamma: 0.1
+  mixed_precision: true
+  resume: true
+  early_stopping:
+    enabled: true
+    patience: 6
+    min_delta: 0.0001
+
+inference:
+  input: COCO DATASET/test
+  output_dir: outputs/inference
+  score_threshold: 0.5
+  top_k: 1
+  extensions: [".jpg", ".jpeg", ".png", ".bmp", ".webp"]
+
+visualization:
+  output_dir: outputs/visualizations
+  max_images: 5
